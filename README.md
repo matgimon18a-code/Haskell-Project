@@ -3,7 +3,6 @@
 ## Lenguajes de programación
 
 **Autores:**  
-- Jhonny Aguirre  
 - Juliana Sepulveda  
 - Matias Gil  
 
