@@ -1,19 +1,20 @@
+--Factorial helper
 factorial :: Integer -> Integer
 factorial 0 = 1
 factorial n = n * factorial (n - 1)
-
+--Funcion para aproximar exponencial
 expAprox :: Double -> Int -> Double
 expAprox x n = sum [ (x^^k) / fromIntegral (factorial (toInteger k)) | k <- [0..(n-1)] ]
-
+-- Funcion para aproximar coseno
 cosAprox :: Double -> Int -> Double
 cosAprox x n = sum [ ((-1)^^k) * (x^^(2*k)) / fromIntegral (factorial (toInteger (2*k))) | k <- [0..(n-1)] ]
-
+-- funcion para aproximar logaritmo
 logAprox :: Double -> Int -> Double
 logAprox x n = sum [ ((-1)^^(k+1)) * (x^^k) / fromIntegral k | k <- [1..(n-1)] ]
-
+-- Error porcentual
 percentError :: Double -> Double -> Double
 percentError approx real = abs ((real - approx) / real) * 100
-
+-- Calcular exponencial
 process :: String -> Double -> Int -> IO ()
 process "exponencial" x n = do
     let approx = expAprox x n
@@ -23,7 +24,7 @@ process "exponencial" x n = do
     putStrLn ("Aprox: " ++ show approx)
     putStrLn ("Real: " ++ show real)
     putStrLn ("Error: " ++ show error ++ "%")
-
+-- Calcular Coseno
 process "coseno" x n = do
     let approx = cosAprox x n
         real   = cos x
@@ -32,7 +33,7 @@ process "coseno" x n = do
     putStrLn ("Aprox: " ++ show approx)
     putStrLn ("Real: " ++ show real)
     putStrLn ("Error: " ++ show error ++ "%")
-
+-- Calcular logaritmo
 process "logaritmo" x n = do
     let approx = logAprox x n
         real   = log (1 + x)
@@ -43,7 +44,7 @@ process "logaritmo" x n = do
     putStrLn ("Error: " ++ show error ++ "%")
 
 process _ _ _ = putStrLn "Funcion no reconocida. Usa: exponencial, coseno o logaritmo."
-
+-- Main para la minicalculadora interactiva
 main :: IO ()
 main = do
     putStrLn "Mini Calculadora de Series (escribe: funcion valor N)"
@@ -58,4 +59,5 @@ main = do
                 x    = read (ws !! 1) :: Double
                 n    = read (ws !! 2) :: Int
             process func x n
-    main  
+    main  -- este pequeño main es para que el codigo sea como un bucle y se repita.
+
